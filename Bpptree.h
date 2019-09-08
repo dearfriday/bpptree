@@ -64,11 +64,13 @@ namespace bpptree{
                 }
                 values.clear();
                 values.insert(t);
+
                 assert(node_front.values.size() > 0 && node_back.values.size() > 0);
                 node_front.depth = depth + 1;
                 node_back.depth = depth + 1;
                 children.push_back(node_front);
                 children.push_back(node_back);
+                return;
             }
 
             if(values.size() > 0 && !compare(*values.begin(), v)){
@@ -125,12 +127,15 @@ namespace bpptree{
         void debug(Json::Value &vv){
            size_t i = 0;
            for(auto itr = values.begin(); itr != values.end(); itr++, i++){
-                if(i < children.size()){
-                    Json::Value dp;
-                    children[i].debug(dp);
-                    vv[std::to_string(i) + "depth " + std::to_string(depth)] = dp;
-                }
-                vv[std::to_string(i) + "index"] = itr->to_string();
+                vv["value" + std::to_string(i)] = itr->to_string();
+           }
+
+           i = 0;
+           for(auto itr : children){
+               Json::Value dp;
+               children[i].debug(dp);
+               vv[std::to_string(i) + "depth " + std::to_string(children[i].depth)] = dp;
+               i++;
            }
         }
 

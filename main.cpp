@@ -41,7 +41,7 @@ int main() {
     Json::Value vv;
     try {
         node<transaction, 5> tree;
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 10; i++) {
             tree.insert({i, std::to_string(i)});
 
         }
